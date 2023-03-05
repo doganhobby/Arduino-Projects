@@ -238,8 +238,6 @@ void loadLastValues() {
 }
 
 void go(int p) {
-  lastActivity = millis();
-
   goingTo = p;
 
   //if (motor_position_counter < goingTo && last_motor_move_direction == -1) motor_position_counter -= 2;
@@ -274,8 +272,6 @@ void read_encoder() {
 
 //--------------------HTTP functions-----------------------------------------
 void resetEncoder() {
-  lastActivity = millis();
-
   motor_position_counter = 0;
   saveMotorPosition();
   
@@ -283,19 +279,14 @@ void resetEncoder() {
 }
 
 void getInfo() {
-  lastActivity = millis();
-
   httpServer.send(200, "text/plain", String(motor_position_counter) + "," + String(isReverse));
 }
 
 void get_device_type() {
-  lastActivity = millis();
   httpServer.send(200, "text/plain", "Roller Blind");
 }
 
 void motor_move() {
-  lastActivity = millis();
-
   int m_direction = httpServer.arg("direction").toInt();
   if (goingTo == int_max) {
     motor_direction = m_direction;
@@ -308,8 +299,6 @@ void motor_move() {
 }
 
 void go_to() {
-  lastActivity = millis();
-
   int p = httpServer.arg("p").toInt();
   go(p);
 
@@ -317,8 +306,6 @@ void go_to() {
 }
 
 void setReverse() {
-  lastActivity = millis();
-
   int value = httpServer.arg("value").toInt();
   isReverse = value == 1;
 
@@ -332,8 +319,6 @@ void setReverse() {
 }
 
 void addPosition() {
-  lastActivity = millis();
-
   if (numPositions >= 10)
     httpServer.send(400, "text/plain", "You have reached max number of positions!");
 
@@ -386,8 +371,6 @@ void addPosition() {
 }
 
 void deletePosition() {
-  lastActivity = millis();
-
   String id = httpServer.arg("id");
 
   int index = -1;
@@ -429,8 +412,6 @@ void deletePosition() {
 }
 
 void getPositionList() {
-  lastActivity = millis();
-
   String result = "";
   for (int i = 0; i < numPositions; i++) {
     result += positionList[i].id + "#*#" + positionList[i].name + "#*#" + positionList[i].position + "#*#" + positionList[i].time + "*p*";
@@ -440,8 +421,6 @@ void getPositionList() {
 }
 
 void getPosition() {
-  lastActivity = millis();
-
   String id = httpServer.arg("id");
 
   int index = -1;
