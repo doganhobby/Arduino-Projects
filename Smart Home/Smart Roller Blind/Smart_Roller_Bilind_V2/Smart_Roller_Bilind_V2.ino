@@ -150,6 +150,16 @@ void connectToWifi() {
   WiFi.config(staticIP, gateway, subnet, dns, dns2);
 
   WiFi.mode(WIFI_STA);
+
+  //If you are using the device with a powerbank, You can uncomment the ones you want to use to reduce power consuption of the project.
+  //The default value is 20dbm and it's power consuption is 100mW.
+  //when you reduce the output power it's connection range also will reduce. So you need to decide optimum value by trying yourself 
+  
+  //WiFi.setOutputPower(20);  // Set to 20 dBm (100 mW) (default value)
+  //WiFi.setOutputPower(18);  // Set to 18 dBm (63 mW)
+  //WiFi.setOutputPower(12);  // Set to 12 dBm (16 mW)
+  //WiFi.setOutputPower(6);  // Set to 6 dBm (4 mW)
+
   WiFi.begin(ssid, password);
 
   int counter = 0;
@@ -274,7 +284,7 @@ void read_encoder() {
 void resetEncoder() {
   motor_position_counter = 0;
   saveMotorPosition();
-  
+
   httpServer.send(200, "text/plain", "Ok.");
 }
 
