@@ -52,15 +52,11 @@ long last_position_saved = 0;
 long last_Position_Checked = 0;
 
 int motor_direction = 0;
-int last_motor_move_direction = 0;
 long motor_position_counter = 0;
 
 int goingTo = int_max;
 
-
 int timeZone = 3;
-
-
 
 bool isReverse = false;
 
@@ -73,8 +69,6 @@ struct Position {
 
 int numPositions = 0;
 Position positionList[10];
-
-
 
 void setup() {
   Serial.begin(115200);
@@ -110,8 +104,6 @@ void loop() {
       goingTo = int_max;
     }
   }
-
-  if (motor_direction != 0) last_motor_move_direction = motor_direction;
 
   digitalWrite(left_Motor_forward_pin, motor_direction > 0 ? HIGH : LOW);
   digitalWrite(right_Motor_forward_pin, motor_direction > 0 ? HIGH : LOW);
@@ -191,12 +183,6 @@ void saveMotorPosition() {
     f.close();
   }
 
-  f = SPIFFS.open("/last_motor_move_direction.log", "w");
-  if (f) {
-    f.println(last_motor_move_direction);
-    f.close();
-  }
-
   last_position_saved = millis();
 }
 
@@ -204,12 +190,6 @@ void loadLastValues() {
   File f = SPIFFS.open("/motor_position1.log", "r");
   if (f) {
     motor_position_counter = f.readStringUntil('\n').toInt();
-    f.close();
-  }
-
-  f = SPIFFS.open("/last_motor_move_direction.log", "r");
-  if (f) {
-    last_motor_move_direction = f.readStringUntil('\n').toInt();
     f.close();
   }
 
@@ -249,9 +229,6 @@ void loadLastValues() {
 
 void go(int p) {
   goingTo = p;
-
-  //if (motor_position_counter < goingTo && last_motor_move_direction == -1) motor_position_counter -= 2;
-  //else if (motor_position_counter > goingTo && last_motor_move_direction == 1) motor_position_counter += 2;
 }
 
 void read_encoder() {
