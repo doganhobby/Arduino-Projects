@@ -17,8 +17,8 @@ IPAddress dns(192, 168, 1, 1);
 IPAddress dns2(8, 8, 8, 8);
 
 const char *deviceName = "MakeItSmart_Roller_Blind";
-const char *ssid = "Your SSID";
-const char *password = "Your Password";
+  const char *ssid     = "**********Your_SSID************";
+  const char *password = "********Your Password**********";
 
 ESP8266WebServer httpServer(80);
 ESP8266HTTPUpdateServer httpUpdater;
