@@ -5,7 +5,7 @@
 #include <ESP8266HTTPUpdateServer.h>
 #include <ESP8266HTTPClient.h>
 
-#define LED D5
+#define relay_pin 2
 
 ESP8266WebServer httpServer(80);
 ESP8266HTTPUpdateServer httpUpdater;
@@ -23,7 +23,7 @@ void setup() {
 
   analogWriteRange(255);
 
-  pinMode(LED, OUTPUT);
+  pinMode(relay_pin, OUTPUT);
 
   bool success = SPIFFS.begin();
   if (!success) Serial.println("Error mounting the file system");
@@ -36,7 +36,7 @@ void loop() {
 
   }
 
-  digitalWrite(LED, state ? HIGH : LOW);
+  digitalWrite(relay_pin, state ? HIGH : LOW);
 
   httpServer.handleClient();
 }
