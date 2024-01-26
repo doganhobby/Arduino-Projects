@@ -51,7 +51,7 @@ void connectToWifi() {
   IPAddress dns(192, 168, 1, 1);
   IPAddress dns2(8, 8, 8, 8);
 
-  const char* deviceName = "MakeItSmart_Smart_Thermometer";
+  const char* deviceName = "MakeItSmart_Smart_Switch";
   const char *ssid     = "**********Your_SSID************";
   const char *password = "********Your Password**********";
 
@@ -86,12 +86,12 @@ void connectToWifi() {
 //---------------------------------Http Functions---------------------------------------------------------------
 
 void get_state() {
-  httpServer.send(200, "text/plain", /*"hum : " +*/ String(state));
+  httpServer.send(200, "text/plain", String(state));
 }
 
 void toggle() {
   state = !state;
-  httpServer.send(200, "text/plain", /*"temp : " +*/ String(state));
+  httpServer.send(200, "text/plain", String(state));
 }
 
 void get_device_type() {
